@@ -3,6 +3,8 @@ name: Publish to GitHub Packages
 on:
   push:
     branches: [ feature/umb13 ]
+  workflow_dispatch:
+  
 
 env:
   SOLUTION: Our.Umbraco.GMaps.Release.sln
