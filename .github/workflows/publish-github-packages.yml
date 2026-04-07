@@ -2,7 +2,7 @@ name: Publish to GitHub Packages
 
 on:
   push:
-    branches: [ master ]
+    branches: [ feature/umb13 ]
 
 env:
   SOLUTION: Our.Umbraco.GMaps.Release.sln
