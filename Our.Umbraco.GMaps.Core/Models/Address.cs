@@ -11,6 +11,11 @@ namespace Our.Umbraco.GMaps.Models
         [JsonPropertyName("coordinates")]
         public Location Coordinates { get; set; } = new Location();
 
+        [DataMember(Name = "name")]
+        [JsonProperty("name")]
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
+
         [DataMember(Name = "full_address")]
         [JsonProperty("full_address")]
         [JsonPropertyName("full_address")]

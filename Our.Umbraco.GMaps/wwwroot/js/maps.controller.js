@@ -187,7 +187,7 @@ angular.module('umbraco').controller('GMapsMapsController', ['$scope', '$element
 			return address
 		}
 
-		function updateMarkerAddress (address, coordinates) {
+		function updateMarkerAddress (address, coordinates, placeName) {
 			actClearLocation.isDisabled = false
 			$scope.address = {}
 			if (address !== null && (!address.types || address.types.indexOf('plus_code') < 0)) {
@@ -196,7 +196,13 @@ angular.module('umbraco').controller('GMapsMapsController', ['$scope', '$element
 			}
 			$scope.address.coordinates = { lat: coordinates.lat, lng: coordinates.lng }
 
-			if ($scope.address.full_address) {
+			if (placeName && placeName !== $scope.address.full_address) {
+				$scope.address.name = placeName
+			}
+
+			if ($scope.address.name && $scope.address.full_address) {
+				$scope.searchedValue = $scope.address.name + ', ' + $scope.address.full_address
+			} else if ($scope.address.full_address) {
 				$scope.searchedValue = $scope.address.full_address
 			} else {
 				$scope.searchedValue = formatCoordinates($scope.address.coordinates)
@@ -361,7 +367,7 @@ angular.module('umbraco').controller('GMapsMapsController', ['$scope', '$element
 					}
 					vm.map.map = vm.map
 					vm.marker.position = getPinCoordinates(place.geometry.location)
-					updateMarkerAddress(place, vm.marker.position)
+						updateMarkerAddress(place, vm.marker.position, place.name)
 				}
 			})
 		}
@@ -396,6 +402,7 @@ angular.module('umbraco').controller('GMapsMapsController', ['$scope', '$element
 				if ($scope.model.value.address) {
 					actClearLocation.isDisabled = false
 
+					$scope.address.name = $scope.model.value.address.name
 					$scope.address.full_address = $scope.model.value.address.full_address
 					$scope.address.streetNumber = $scope.model.value.address.streetNumber
 					$scope.address.street = $scope.model.value.address.street
@@ -414,7 +421,9 @@ angular.module('umbraco').controller('GMapsMapsController', ['$scope', '$element
 						enableSearchedCoordinates = true
 					}
 
-					if ($scope.address.full_address) {
+					if ($scope.address.name && $scope.address.full_address) {
+						$scope.searchedValue = $scope.address.name + ', ' + $scope.address.full_address
+					} else if ($scope.address.full_address) {
 						$scope.searchedValue = $scope.address.full_address
 					} else if (enableSearchedCoordinates) {
 						$scope.searchedValue = formatCoordinates($scope.address.coordinates)
