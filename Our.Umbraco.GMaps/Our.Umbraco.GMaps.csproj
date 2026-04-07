@@ -7,7 +7,7 @@
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		
-		<Version>3.0.6-opten</Version>
+		<Version>3.0.7-opten</Version>
 		<Authors>Arnold Visser</Authors>
 		<Company>Arnold Visser</Company>
 		<Description>Basic Google Maps with autocomplete property editor for Umbraco 8+</Description>
